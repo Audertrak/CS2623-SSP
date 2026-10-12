@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Cunkle, Timothy">
+    <meta name="description" content="CS2623 Server-Side Programming— SSP01">
+    <meta name="keywords" content="PHP, server-side, CS2623, OCCC">
+    <title>CS2623 SSP01: Cunkle</title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+
+  <body>
+
+    <header>
+      <h1>CS2623 Server-Side Programming</h1>
+    </header>
+
+    <nav>
+      <!-- top nav links here -->
+    </nav>
+
+    <main>
+      <p>Hello World (HTML)</p>
+      <?php echo htmlspecialchars('<p>Hello World (PHP
+      Testing)</p>'); ?>
+      <!-- ↑ Note: htmlspecialchars() is required for all echoed output -->
+    </main>
+
+    <footer>
+      <p>
+        Disclaimer: Oklahoma City Community College does not necessarily endorse the content or the respective links of this web page.
+      </p>
+    </footer>
+
+  </body>
+
+</html>
