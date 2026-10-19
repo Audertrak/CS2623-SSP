@@ -7,6 +7,7 @@
    Background: #F5F5F5 (light gray)
    Header: #1B2A6B (navy)
    Text: #222222 (near-black)
+   Header text: #FFFFFF (white)
    Nav buttons: #006B7D (teal)
    Footer: #E0E0E0 (light gray)
    Links: #0000EE (standard blue)
@@ -19,3 +20,54 @@
    Nav: 0.85em Tahoma, Verdana, Arial
    ============================================================
 */
+
+body {
+  background-color: #f5f5f5;
+  color: #222222;
+  font-family: Calibri, Tahoma, Verdana, Arial, sans-serif;
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #1b2a6b;
+  color: #ffffff;
+  padding: 1em;
+}
+
+header h1 {
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 2.2em;
+  margin: 0;
+}
+
+nav {
+  background-color: #006b7d;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-size: 0.85em;
+  padding: 0.6em;
+}
+
+nav a {
+  color: #ffffff;
+  margin-right: 1em;
+  text-decoration: none;
+}
+
+nav a:visited {
+  color: #ffffff;
+}
+
+nav a:active {
+  color: #cc0000;
+}
+
+main {
+  padding: 1em;
+}
+
+footer {
+  background-color: #e0e0e0;
+  padding: 1em;
+}
