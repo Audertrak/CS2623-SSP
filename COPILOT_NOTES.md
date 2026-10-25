@@ -44,15 +44,26 @@ Explicit reason given in the assignment for using `htmlspecialchars()` is XSS pr
 
 ### ✅ Accepted
 
-- Some text
+- I accepted Copilot's `fn_tableOpen` HTML structure for SSP03. I kept the caption row and the three column headings, and I verified that the caption uses `htmlspecialchars($caption, ENT_QUOTES, 'UTF-8')`.
+- I accepted the `for` loop over the seven planner days. I checked that it runs from 1 through 7, calls the three schedule functions, and uses the highlighted-row function only for the current day.
+- I accepted the `DateTimeZone('America/Chicago')` fix in SSP03 and SSP04. Apollo runs UTC, so the zone keeps the highlighted day and displayed dates correct for the college.
+- I accepted `DateTime::createFromFormat('Y-m-d')` for the SSP04 birthdate. I verified that it works with `diff()` and provides the age in years and days.
+- I accepted the `require_once` pattern for the SSP03 function library, header, and footer. I verified it loads each required file once and uses `__DIR__` so the paths do not depend on Apache's working folder.
 
 ### ❌ Rejected
 
-- Some text
+- I rejected Copilot's `match` expression for `fn_dayOfWeek`. The assignment requires an `if`/`elseif` chain, so I wrote that control structure instead.
+- I rejected the short echo tags `<?= ?>` in SSP04. Chapter 2, slide 76 says short tags are not allowed in this course, so I used full `<?php echo ... ?>` blocks.
+- I rejected the timezone-less `new DateTime('now')` suggestion in SSP04. Apollo runs UTC, so the page uses `DateTimeZone('America/Chicago')`.
+- I rejected the direct `str_contains()` call in the deployed SSP04 exercise because Apollo runs PHP 5 and the function caused a fatal error there. I used `strpos($description, 'PHP') !== false` for the running Apollo version and kept the PHP 8 form in a comment.
+- I rejected active `declare(strict_types=1)` and typed PHP 8 signatures in the deployed files because Apollo runs PHP 5. Those forms cause warnings or parse errors on Apollo. I documented the deviation and kept the PHP 8 forms beside the running PHP 5 forms in comments.
 
 ### ✏️ Improved
 
-- Some text
+- I improved the SSP04 escaping approach by removing the `output_value()` helper. The helper hid the security call, so I put `htmlspecialchars($value, ENT_QUOTES, 'UTF-8')` at each output site where the browser receives a value.
+- I improved the SSP03 schedule to fit my four 10-hour work shifts from 6:00 AM to 4:30 PM Monday through Thursday. I moved the study blocks to the evenings, used Friday for quiz review and office hours, and left the weekend flexible.
+- I improved the SSP04 countdown label by naming the target date, 2026-12-15, so the displayed number identifies the date it counts to.
+- I improved the SSP03 reusable header and footer from the Week 1 pattern. The header keeps the escaped Apollo server-name fallback, and the footer keeps the escaped `filemtime()` timestamp and OCCC disclaimer while adding the Week 2 document structure.
 
 ## Week 3
 
