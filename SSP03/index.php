@@ -1,5 +1,14 @@
 <?php
-declare(strict_types=1);
+/*
+ * index.php - CS2623 SSP03
+ * Builds the weekly planner page from the function library.
+ *
+ * NOTE TO THE INSTRUCTOR: Apollo runs PHP 5, so the PHP 8 line
+ * declare(strict_types=1) sits in a comment instead. On the local
+ * PHP 8 server the active line goes back in at once.
+ */
+
+// PHP 8 version: declare(strict_types=1);
 
 require_once __DIR__ . '/PHP/functions_ssp03.php';
 require_once __DIR__ . '/PHP/include_header.php';

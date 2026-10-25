@@ -1,15 +1,21 @@
 <?php
-declare(strict_types=1);
-
 /*
  * functions_ssp03.php - CS2623 SSP03
  * Prints the weekly planner table from the schedule functions.
+ *
+ * NOTE TO THE INSTRUCTOR: the course server Apollo runs PHP 5, so this
+ * file keeps PHP 5 syntax. Each affected line sits next to a comment
+ * that shows the PHP 8 form the assignment prescribes. The PHP 8 draft
+ * of this file is also in the Git history (commit 5e7c4ce).
  */
+
+// PHP 8 version: declare(strict_types=1);
 
 /**
  * Open the weekly planner table and print its headings.
  */
-function fn_tableOpen(string $caption): void
+// PHP 8 version: function fn_tableOpen(string $caption): void
+function fn_tableOpen($caption)
 {
     echo '<table border="1" cellpadding="6" cellspacing="0">';
     echo '<tr style="background-color:#1B2A6B;color:#FFFFFF;">';
@@ -27,7 +33,8 @@ function fn_tableOpen(string $caption): void
 /**
  * Close the weekly planner table.
  */
-function fn_tableClose(): void
+// PHP 8 version: function fn_tableClose(): void
+function fn_tableClose()
 {
     echo '</table>';
 }
@@ -35,7 +42,8 @@ function fn_tableClose(): void
 /**
  * Print the current day's highlighted planner row.
  */
-function fn_tableRowCurrent(string $day, string $details, string $time): void
+// PHP 8 version: function fn_tableRowCurrent(string $day, string $details, string $time): void
+function fn_tableRowCurrent($day, $details, $time)
 {
     echo '<tr style="background-color:#FFFF66;">';
     echo '<td>' . htmlspecialchars($day, ENT_QUOTES, 'UTF-8') . '</td>';
@@ -47,7 +55,8 @@ function fn_tableRowCurrent(string $day, string $details, string $time): void
 /**
  * Print a normal planner row.
  */
-function fn_tableRow(string $day, string $details, string $time): void
+// PHP 8 version: function fn_tableRow(string $day, string $details, string $time): void
+function fn_tableRow($day, $details, $time)
 {
     echo '<tr>';
     echo '<td>' . htmlspecialchars($day, ENT_QUOTES, 'UTF-8') . '</td>';
@@ -59,7 +68,8 @@ function fn_tableRow(string $day, string $details, string $time): void
 /**
  * Return the weekday name for a number from one through seven.
  */
-function fn_dayOfWeek(int $day_num): string
+// PHP 8 version: function fn_dayOfWeek(int $day_num): string
+function fn_dayOfWeek($day_num)
 {
     if ($day_num === 1) {
         return 'Monday';
@@ -83,7 +93,8 @@ function fn_dayOfWeek(int $day_num): string
 /**
  * Return the scheduled activity for a weekday number.
  */
-function fn_dayDetails(int $day_num): string
+// PHP 8 version: function fn_dayDetails(int $day_num): string
+function fn_dayDetails($day_num)
 {
     switch ($day_num) {
         case 1:
@@ -110,7 +121,8 @@ function fn_dayDetails(int $day_num): string
 /**
  * Return the scheduled time for a weekday number.
  */
-function fn_dayTime(int $day_num): string
+// PHP 8 version: function fn_dayTime(int $day_num): string
+function fn_dayTime($day_num)
 {
     if ($day_num === 1 || $day_num === 3) {
         return '5:30 PM - 7:30 PM';
