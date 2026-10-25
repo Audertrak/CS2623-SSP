@@ -1,0 +1,21 @@
+# Local editor and operating-system files
+.vscode/
+.idea/
+.vs/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# PHP dependencies and local runtime output
+/vendor/
+*.log
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# XAMPP local files
+/xampp/
+/htdocs/
