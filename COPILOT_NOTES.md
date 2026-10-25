@@ -55,8 +55,8 @@ Explicit reason given in the assignment for using `htmlspecialchars()` is XSS pr
 - I rejected Copilot's `match` expression for `fn_dayOfWeek`. The assignment requires an `if`/`elseif` chain, so I wrote that control structure instead.
 - I rejected the short echo tags `<?= ?>` in SSP04. Chapter 2, slide 76 says short tags are not allowed in this course, so I used full `<?php echo ... ?>` blocks.
 - I rejected the timezone-less `new DateTime('now')` suggestion in SSP04. Apollo runs UTC, so the page uses `DateTimeZone('America/Chicago')`.
-- I rejected the direct `str_contains()` call in the deployed SSP04 exercise because Apollo runs PHP 5 and the function caused a fatal error there. I used `strpos($description, 'PHP') !== false` for the running Apollo version and kept the PHP 8 form in a comment.
-- I rejected active `declare(strict_types=1)` and typed PHP 8 signatures in the deployed files because Apollo runs PHP 5. Those forms cause warnings or parse errors on Apollo. I documented the deviation and kept the PHP 8 forms beside the running PHP 5 forms in comments.
+- I temporarily rejected the direct `str_contains()` call during the Apollo investigation because the old server reported that the PHP 8 function was unavailable. The instructor confirmed that PHP 8 is the assignment target, so the final submitted code must use `str_contains()` rather than the PHP 5 fallback.
+- I temporarily rejected active `declare(strict_types=1)` and typed PHP 8 signatures during the Apollo investigation because the old server rejected them. The instructor confirmed that PHP 8 is the assignment target, so the final submitted code must keep the required PHP 8 forms active. No separate PHP 5 assignment copy is required.
 
 ### ✏️ Improved
 

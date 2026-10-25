@@ -1,21 +1,13 @@
 <?php
+declare(strict_types=1);
 /*
  * ex1_strings.php - CS2623 SSP04
  * Prints a table of the string functions on a sample description.
- *
- * NOTE TO THE INSTRUCTOR: Apollo runs PHP 5, so this file keeps PHP 5
- * syntax. Each affected line sits next to a comment that shows the PHP
- * 8 form the assignment prescribes. The PHP 8 draft of this file is
- * also in the Git history (commit 3340a99).
  */
-
-// PHP 8 version: declare(strict_types=1);
 
 $description = 'PHP server-side programming supports practical web pages.';
 $replacement = str_replace('practical', 'useful', $description);
-// PHP 8 version: $contains_php = str_contains($description, 'PHP');
-// Apollo runs PHP 5, so the check uses strpos(). Same boolean result.
-$contains_php = strpos($description, 'PHP') !== false;
+$contains_php = str_contains($description, 'PHP');
 $contains_text = $contains_php ? 'true' : 'false';
 $lowercase = strtolower($description);
 $uppercase = strtoupper($description);

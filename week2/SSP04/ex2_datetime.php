@@ -1,14 +1,9 @@
 <?php
+declare(strict_types=1);
 /*
  * ex2_datetime.php - CS2623 SSP04
  * Prints the current date and time and the age and countdown intervals.
- *
- * NOTE TO THE INSTRUCTOR: Apollo runs PHP 5, so the PHP 8 line
- * declare(strict_types=1) sits in a comment instead. The DateTime API
- * used on this page works on both versions.
  */
-
-// PHP 8 version: declare(strict_types=1);
 
 $tz = new DateTimeZone('America/Chicago');
 $now = new DateTime('now', $tz);

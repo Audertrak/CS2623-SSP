@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /*
  * include_header.php - CS2623 SSP03
  * Prints the reusable document header and page heading.

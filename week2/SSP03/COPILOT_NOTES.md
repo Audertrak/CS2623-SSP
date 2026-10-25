@@ -9,8 +9,8 @@
 | 3 | functions_ssp03.php | Sample weekly schedule rows | IMPROVED | Copilot echoed the sample from the assignment. I changed Mon-Thu to fit my full-time work shifts (6:00 AM-4:30 PM) and moved the study blocks to the evening, with Friday daytime free. |
 | 4 | index.php | `for` loop over the seven days | ACCEPTED | The loop runs 1 through 7 and calls the three schedule functions each pass. I checked it covers Monday through Sunday. |
 | 5 | index.php | Current-day highlight conditional | ACCEPTED | The branch picks `fn_tableRowCurrent` for today and `fn_tableRow` otherwise. I added `DateTimeZone('America/Chicago')` because Apollo runs UTC and the highlight would land on the wrong row without it. |
-| 6 | functions_ssp03.php, index.php | `declare(strict_types=1)` and the typed PHP 8 signatures | REJECTED | Apollo runs PHP 5. The typed file gives a parse error there and the strict-types line prints a warning on every page load, so the shipped code keeps PHP 5 syntax. I rejected the code, not the idea, and said so in the file header. |
-| 7 | functions_ssp03.php | PHP 8 forms at each affected site | IMPROVED | I kept every PHP 8 signature as a comment beside the PHP 5 one, added one `NOTE TO THE INSTRUCTOR` block per file that names the reason, and pointed to commit 5e7c4ce in the Git history, which holds the full PHP 8 draft. |
+| 6 | functions_ssp03.php, index.php | PHP 5 adaptation for `declare(strict_types=1)` and typed signatures | REJECTED | I temporarily tested a PHP 5 adaptation after Apollo rejected the PHP 8 forms. The instructor confirmed that PHP 8 is the assignment target, so the final submitted files must keep strict types and typed signatures active. |
+| 7 | functions_ssp03.php | PHP 8 forms at each affected site | IMPROVED | I first kept the PHP 8 forms in comments while investigating Apollo. The instructor confirmed that separate PHP 5 deployment copies are not required, so the final code should keep the PHP 8 forms active instead. |
 
 ## Include choice
 

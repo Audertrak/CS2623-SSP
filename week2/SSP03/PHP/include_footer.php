@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /*
  * include_footer.php - CS2623 SSP03
  * Prints the reusable timestamp and disclaimer footer.
