@@ -1,5 +1,24 @@
 <?php
 declare(strict_types=1);
+
+$method = filter_input(INPUT_SERVER, 'REQUEST_METHOD') ?? 'GET';
+$first_name = '';
+$last_name = '';
+$email = '';
+$age = 0;
+$gender = 'not specified';
+$country = '';
+$comments = '';
+
+if ($method === 'POST') {
+    $first_name = filter_input(INPUT_POST, 'first_name') ?? '';
+    $last_name = filter_input(INPUT_POST, 'last_name') ?? '';
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL) ?? '';
+    $age = filter_input(INPUT_POST, 'age', FILTER_VALIDATE_INT) ?? 0;
+    $gender = filter_input(INPUT_POST, 'gender') ?? 'not specified';
+    $country = filter_input(INPUT_POST, 'country') ?? '';
+    $comments = filter_input(INPUT_POST, 'comments') ?? '';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,6 +94,22 @@ declare(strict_types=1);
 
         <button type="submit">Submit</button>
       </form>
+
+      <?php if ($method === 'POST'): ?>
+        <h2>Submitted Information</h2>
+        <p><strong>Name:</strong>
+          <?php echo htmlspecialchars($first_name . ' ' . $last_name, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Email:</strong>
+          <?php echo htmlspecialchars((string) $email ?: '(invalid)', ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Age:</strong>
+          <?php echo htmlspecialchars((string) $age, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Gender:</strong>
+          <?php echo htmlspecialchars($gender, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Country:</strong>
+          <?php echo htmlspecialchars($country, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Comments:</strong><br>
+          <?php echo nl2br(htmlspecialchars($comments, ENT_QUOTES, 'UTF-8')); ?></p>
+      <?php endif; ?>
     </main>
 
     <footer>
