@@ -67,6 +67,49 @@ Explicit reason given in the assignment for using `htmlspecialchars()` is XSS pr
 
 ## Week 3
 
+### Copilot in a Coal Mine
+
+#### `filter_input()` vs `$_POST`
+
+The assignment instructions ask: "What is the difference between `filter_input` and `$_POST` in PHP?"
+
+> [!NOTE] 🤖 Copilot Says:
+> `$_POST` is a PHP superglobal array that contains values submitted in the request body with the POST method. It gives direct access to the submitted values, but it does not validate or sanitize them.
+>
+> `filter_input()` reads a value from an external input source, such as `INPUT_POST`, and can apply a filter while it reads the value. For example, `FILTER_VALIDATE_EMAIL` can check whether an email value has a valid format, and `FILTER_VALIDATE_INT` can check whether a value is an integer. It is not a replacement for output escaping, so submitted values still need `htmlspecialchars()` before they are displayed.
+
+This explains why SSP05 uses `filter_input()` for form processing instead of reading fields directly from `$_POST`.
+
+#### Xdebug with XAMPP on Windows
+
+The assignment instructions ask: "How do I set up Xdebug with XAMPP on Windows?"
+
+> [!NOTE] 🤖 Copilot Says:
+> Install the PHP Debug extension in VS Code. In XAMPP, find the active PHP configuration file from the Apache Config menu and check the PHP version that Apache uses. Install an Xdebug build that matches that PHP version, thread safety setting, architecture, and PHP extension API.
+>
+> Add the Xdebug settings to the active `php.ini` file:
+>
+> ```ini
+> zend_extension=xdebug
+> xdebug.mode=debug
+> xdebug.start_with_request=yes
+> xdebug.client_host=127.0.0.1
+> xdebug.client_port=9003
+> ```
+>
+> Restart Apache after saving the file. In VS Code, create a PHP debug launch configuration that listens on port 9003. Set a breakpoint inside the POST block, start the listener, and submit the form. If VS Code does not pause, confirm that Apache uses the edited `php.ini`, the Xdebug extension loads, and the firewall allows local connections on port 9003.
+
+This setup is documented for the optional debugger workflow. It was not required to run Xdebug for this assignment.
+
+#### `session_regenerate_id()` user enhancement
+
+The page 6 security notes ask for the future session-security pattern to be recorded.
+
+> [!NOTE] 🤖 Copilot Says:
+> `session_regenerate_id()` creates a new session identifier while keeping the current session data. Use it after a successful login to reduce session fixation risk. The current SSP05 pages do not use sessions or login, so this function is documented for future authenticated pages rather than added to these forms.
+
+User enhancement: I added this security note after reviewing page 6. This corrects the earlier Week 3 notes, which said that session security was out of scope but did not name `session_regenerate_id()`.
+
 ### ✅ Accepted
 
 - Some text
