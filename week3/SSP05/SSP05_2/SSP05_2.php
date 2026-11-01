@@ -1,5 +1,30 @@
 <?php
 declare(strict_types=1);
+
+$method = filter_input(INPUT_SERVER, 'REQUEST_METHOD') ?? 'GET';
+$cust_name = '';
+$product = '';
+$quantity = 1;
+$options = [];
+$instructions = '';
+$payment = 'none';
+
+if ($method === 'POST') {
+    $cust_name = filter_input(INPUT_POST, 'cust_name') ?? '';
+    $product = filter_input(INPUT_POST, 'product') ?? '';
+    $quantity = filter_input(INPUT_POST, 'quantity', FILTER_VALIDATE_INT);
+    if ($quantity === false || $quantity === null || $quantity < 1) {
+        $quantity = 1;
+    }
+    $options = filter_input(
+        INPUT_POST,
+        'options',
+        FILTER_SANITIZE_SPECIAL_CHARS,
+        FILTER_REQUIRE_ARRAY
+    ) ?? [];
+    $instructions = filter_input(INPUT_POST, 'instructions') ?? '';
+    $payment = filter_input(INPUT_POST, 'payment') ?? 'none';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,6 +105,26 @@ declare(strict_types=1);
 
         <button type="submit">Place Order</button>
       </form>
+
+      <?php if ($method === 'POST'): ?>
+        <h2>Order Summary</h2>
+        <p><strong>Customer:</strong>
+          <?php echo htmlspecialchars($cust_name, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Product:</strong>
+          <?php echo htmlspecialchars($product, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Quantity:</strong>
+          <?php echo htmlspecialchars((string) $quantity, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Payment:</strong>
+          <?php echo htmlspecialchars($payment, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p><strong>Selected Options:</strong></p>
+        <ul>
+          <?php foreach ($options as $option): ?>
+            <li><?php echo htmlspecialchars($option, ENT_QUOTES, 'UTF-8'); ?></li>
+          <?php endforeach; ?>
+        </ul>
+        <p><strong>Instructions:</strong><br>
+          <?php echo nl2br(htmlspecialchars($instructions, ENT_QUOTES, 'UTF-8')); ?></p>
+      <?php endif; ?>
     </main>
 
     <footer>
