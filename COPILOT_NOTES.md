@@ -131,6 +131,10 @@ User enhancement: I added this security note after reviewing page 6. This correc
 
 - Ex 15-1: I accepted `htmlspecialchars()` on `$exception->getMessage()` before it prints. Exception text can include submitted values, so it needs the same escaping as any other output.
 - Ex 21-2: I accepted `session_unset()` and `session_destroy()` followed by a redirect in `logout.php`. I also clear the remember-me cookie there so a logged-out browser does not keep the username.
+- Ex 11-1: I accepted `array_map()` with an arrow function, `fn(string $fruit): string => strtoupper($fruit)`, for the uppercase list. It is short, it needs no `use` clause, and I checked that it leaves the original `$fruits` array unchanged.
+- Ex 15-1: I accepted `filter_var($website, FILTER_VALIDATE_URL)` for the website field. It handles URL edge cases that a pattern I wrote would miss, and it fails the same way the email check does, so the error list stays consistent.
+- Ex 15-1: I accepted `preg_match()` for the phone and ZIP formats, `/^\d{3}-\d{3}-\d{4}$/` and `/^\d{5}(-\d{4})?$/`. `filter_var()` has no validator for either one, and both patterns are anchored so extra characters fail. I tested a valid and an invalid value for each.
+- Ex 21-2: I accepted the guard in `auth.php` that redirects to the login page when `$_SESSION['user']` is not set. Every protected page (`dashboard.php`, `profile.php`, and the cart pages) requires that one file, so the login check lives in one place.
 
 ### ❌ Rejected
 
