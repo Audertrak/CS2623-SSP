@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = 'Search must contain letters only.';
         } else {
             $found = in_array($search, $fruits, true);
-            $message = $found ? "Found: $search" : "Not found: $search";
+            $message = $found ? 'Found: ' . $search : 'Not found: ' . $search;
         }
     }
 }
@@ -54,7 +54,7 @@ $catalog = [
       <form method="post">
         <label for="search">Search fruit:</label>
         <input id="search" type="text" name="search"
-               value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>">
+              value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>">
         <button type="submit">Search</button>
         <button type="submit" name="sort" value="1">Sort A-Z</button>
       </form>
@@ -63,7 +63,7 @@ $catalog = [
         <p><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></p>
       <?php endif; ?>
 
-      <h2><?= $sorted ? 'Sorted List' : 'Original List' ?> (<?= count($fruits) ?> items)</h2>
+      <h2><?= $sorted ? 'Sorted List' : 'Original List' ?> (<?= htmlspecialchars((string) count($fruits), ENT_QUOTES, 'UTF-8') ?> items)</h2>
       <ul>
         <?php foreach ($fruits as $fruit): ?>
           <li><?= htmlspecialchars($fruit, ENT_QUOTES, 'UTF-8') ?></li>
@@ -90,9 +90,9 @@ $catalog = [
         <tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Price</th></tr>
         <?php foreach ($catalog as $row): ?>
           <tr>
-            <td><?= (int) $row['id'] ?></td>
+            <td><?= htmlspecialchars((string) $row['id'], ENT_QUOTES, 'UTF-8') ?></td>
             <td><?= htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') ?></td>
-            <td>$<?= number_format((float) $row['price'], 2) ?></td>
+            <td>$<?= htmlspecialchars(number_format((float) $row['price'], 2), ENT_QUOTES, 'UTF-8') ?></td>
           </tr>
         <?php endforeach; ?>
       </table>
