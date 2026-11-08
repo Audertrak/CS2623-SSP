@@ -8,6 +8,7 @@ $message = '';
 $sorted = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // reject unsafe searches before checking the fruit list
     if (isset($_POST['sort'])) {
         sort($fruits);
         $sorted = true;
@@ -22,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $upper = array_map(fn(string $fruit): string => strtoupper($fruit), $fruits);
+// keep only fruits that meet the assignment length rule
 $filtered = array_filter($fruits, fn(string $fruit): bool => strlen($fruit) >= 6);
 $catalog = [
     ['id' => 1, 'name' => 'Apple', 'price' => 1.29],

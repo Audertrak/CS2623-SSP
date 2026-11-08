@@ -13,6 +13,7 @@ function validateContact(array $data): array
 {
     $errors = [];
 
+    // use built-in validation for standard formats
     if (!filter_var($data['email'] ?? '', FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Invalid email address.';
     }
@@ -29,6 +30,7 @@ function validateContact(array $data): array
         $errors[] = 'Age must be a whole number.';
     }
     if (!preg_match('/^[A-Z]{2}\d{4}$/', $data['product_code'] ?? '')) {
+        // use the specific exception required for product-code errors
         throw new FormatException('Product code must use two uppercase letters and four digits.');
     }
     if ($errors !== []) {

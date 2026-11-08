@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require '../SSP06_21_2/auth.php';
 
+// use an array keyed by product id to mirror a database result set
 $products = [
     1 => ['id' => 1, 'name' => 'Fender Stratocaster', 'price' => 499.99],
     2 => ['id' => 2, 'name' => 'Gibson Les Paul', 'price' => 799.99],
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
     $action = filter_input(INPUT_POST, 'action', FILTER_UNSAFE_RAW);
     if ($id !== false && $id !== null && isset($products[$id])) {
+        // keep cart quantities nonnegative when removing items
         if ($action === 'remove') {
             $_SESSION['cart'][$id] = ($_SESSION['cart'][$id] ?? 0) - 1;
             if ($_SESSION['cart'][$id] <= 0) {

@@ -7,7 +7,10 @@ $users = [
     'jsmith' => password_hash('php4life!', PASSWORD_DEFAULT),
 ];
 
-$_SESSION['attempts'] ??= 0;
+// keep the lockout count separate for each submitted username
+if (!isset($_SESSION['attempts']) || !is_array($_SESSION['attempts'])) {
+    $_SESSION['attempts'] = [];
+}
 $error = '';
 $rememberedUser = $_COOKIE['remembered_user'] ?? '';
 
@@ -17,11 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
     $password = is_string($password) ? $password : '';
     $remember = filter_input(INPUT_POST, 'remember', FILTER_VALIDATE_BOOL) ?? false;
+    $attempts = (int) ($_SESSION['attempts'][$username] ?? 0);
 
-    if ($_SESSION['attempts'] >= 3) {
+    if ($attempts >= 3) {
         $error = 'This account is locked after three failed attempts.';
     } elseif (isset($users[$username]) && password_verify($password, $users[$username])) {
-        $_SESSION['attempts'] = 0;
+        unset($_SESSION['attempts'][$username]);
         session_regenerate_id(true);
         $_SESSION['user'] = $username;
         $_SESSION['login_at'] = time();
@@ -39,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: dashboard.php');
         exit;
     } else {
-        $_SESSION['attempts']++;
+        $_SESSION['attempts'][$username] = $attempts + 1;
         $error = 'Invalid username or password.';
     }
 }
