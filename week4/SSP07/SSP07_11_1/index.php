@@ -1,12 +1,34 @@
 <?php
 declare(strict_types=1);
-/*
- * Exercise 11-1 Arrays - CS2623
- * Build this page from the assignment instructions.
- */
 
-// Escape every value that comes from a request or a file.
-// echo htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+$fruits = ['apple', 'banana', 'cherry', 'date', 'elderberry'];
+$search = filter_input(INPUT_POST, 'search', FILTER_UNSAFE_RAW);
+$search = is_string($search) ? trim($search) : '';
+$message = '';
+$sorted = false;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['sort'])) {
+        sort($fruits);
+        $sorted = true;
+    } elseif ($search !== '') {
+        if (!preg_match('/^[A-Za-z]+$/', $search)) {
+            $message = 'Search must contain letters only.';
+        } else {
+            $found = in_array($search, $fruits, true);
+            $message = $found ? "Found: $search" : "Not found: $search";
+        }
+    }
+}
+
+$upper = array_map(fn(string $fruit): string => strtoupper($fruit), $fruits);
+$filtered = array_filter($fruits, fn(string $fruit): bool => strlen($fruit) >= 6);
+$catalog = [
+    ['id' => 1, 'name' => 'Apple', 'price' => 1.29],
+    ['id' => 2, 'name' => 'Banana', 'price' => 0.49],
+    ['id' => 3, 'name' => 'Cherry', 'price' => 2.99],
+    ['id' => 4, 'name' => 'Dragonfruit', 'price' => 4.25],
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +47,54 @@ declare(strict_types=1);
     </header>
 
     <main>
-    <h1>CS2623 Server-Side Programming</h1>
+      <h1>Fruit Array Demo</h1>
+
+      <!-- TODO (user): Test a valid fruit, an unknown fruit, and non-alpha input before submission. -->
+      <form method="post">
+        <label for="search">Search fruit:</label>
+        <input id="search" type="text" name="search"
+               value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>">
+        <button type="submit">Search</button>
+        <button type="submit" name="sort" value="1">Sort A-Z</button>
+      </form>
+
+      <?php if ($message !== ''): ?>
+        <p><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></p>
+      <?php endif; ?>
+
+      <h2><?= $sorted ? 'Sorted List' : 'Original List' ?> (<?= count($fruits) ?> items)</h2>
+      <ul>
+        <?php foreach ($fruits as $fruit): ?>
+          <li><?= htmlspecialchars($fruit, ENT_QUOTES, 'UTF-8') ?></li>
+        <?php endforeach; ?>
+      </ul>
+
+      <h2>Uppercase (array_map + arrow function)</h2>
+      <ul>
+        <?php foreach ($upper as $fruit): ?>
+          <li><?= htmlspecialchars($fruit, ENT_QUOTES, 'UTF-8') ?></li>
+        <?php endforeach; ?>
+      </ul>
+
+      <h2>Fruits with at least six characters</h2>
+      <ul>
+        <?php foreach ($filtered as $fruit): ?>
+          <li><?= htmlspecialchars($fruit, ENT_QUOTES, 'UTF-8') ?></li>
+        <?php endforeach; ?>
+      </ul>
+
+      <h2>Catalog</h2>
+      <table border="1">
+        <caption>Product catalog</caption>
+        <tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Price</th></tr>
+        <?php foreach ($catalog as $row): ?>
+          <tr>
+            <td><?= (int) $row['id'] ?></td>
+            <td><?= htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') ?></td>
+            <td>$<?= number_format((float) $row['price'], 2) ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </table>
     </main>
 
     <footer>
