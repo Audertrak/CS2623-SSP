@@ -29,11 +29,16 @@ function validateContact(array $data): array
     if (filter_var($data['age'] ?? null, FILTER_VALIDATE_INT) === false) {
         $errors[] = 'Age must be a whole number.';
     }
-    if (!preg_match('/^[A-Z]{2}\d{4}$/', $data['product_code'] ?? '')) {
-        // use the specific exception required for product-code errors
-        throw new FormatException('Product code must use two uppercase letters and four digits.');
+    $bad_code = !preg_match('/^[A-Z]{2}\d{4}$/', $data['product_code'] ?? '');
+    if ($bad_code) {
+        $errors[] = 'Product code must use two uppercase letters and four digits.';
     }
+    // collect every error first so a bad product code does not hide the others
     if ($errors !== []) {
+        if ($bad_code) {
+            // the specific exception required for product-code errors
+            throw new FormatException(implode(' | ', $errors));
+        }
         throw new ValidationException(implode(' | ', $errors));
     }
 
@@ -93,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <li>Website: <?= htmlspecialchars($result['website'], ENT_QUOTES, 'UTF-8') ?></li>
           <li>Phone: <?= htmlspecialchars($result['phone'], ENT_QUOTES, 'UTF-8') ?></li>
           <li>ZIP: <?= htmlspecialchars($result['zip'], ENT_QUOTES, 'UTF-8') ?></li>
-          <li>Age: <?= (int) $result['age'] ?></li>
+          <li>Age: <?= htmlspecialchars((string) $result['age'], ENT_QUOTES, 'UTF-8') ?></li>
           <li>Product code: <?= htmlspecialchars($result['product_code'], ENT_QUOTES, 'UTF-8') ?></li>
           <li>Message: <?= nl2br(htmlspecialchars($result['message'], ENT_QUOTES, 'UTF-8')) ?></li>
         </ul>
