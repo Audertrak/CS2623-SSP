@@ -49,7 +49,6 @@ $catalog = [
     <main>
       <h1>Fruit Array Demo</h1>
 
-      <!-- TODO (user): Test a valid fruit, an unknown fruit, and non-alpha input before submission. -->
       <form method="post">
         <label for="search">Search fruit:</label>
         <input id="search" type="text" name="search"

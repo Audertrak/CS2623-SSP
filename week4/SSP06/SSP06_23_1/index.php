@@ -49,7 +49,6 @@ foreach ($_SESSION['cart'] as $id => $quantity) {
       <p>Cart (<?= (int) $itemCount ?> items)</p>
     </header>
     <main>
-      <!-- TODO (user): Log in first, add and remove products, clear the cart, and verify each result. -->
       <?php foreach ($products as $product): ?>
         <article>
           <h2>Product: <?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?></h2>

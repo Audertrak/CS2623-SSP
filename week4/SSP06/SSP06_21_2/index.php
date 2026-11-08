@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <body>
     <header><h1>Login</h1></header>
     <main>
-      <!-- TODO (user): Test admin/secret123 and jsmith/php4life!, then test three failed attempts. -->
       <?php if ($error !== ''): ?>
         <p><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
       <?php endif; ?>

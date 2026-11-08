@@ -80,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main>
       <h1>Contact Form Validation</h1>
 
-      <!-- TODO (user): Test valid and invalid values for every field before submission. -->
       <?php if ($error !== ''): ?>
         <div class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
       <?php endif; ?>
