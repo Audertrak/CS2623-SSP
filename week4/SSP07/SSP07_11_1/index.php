@@ -84,7 +84,7 @@ $catalog = [
       </ul>
 
       <h2>Catalog</h2>
-      <table border="1">
+      <table>
         <caption>Product catalog</caption>
         <tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Price</th></tr>
         <?php foreach ($catalog as $row): ?>

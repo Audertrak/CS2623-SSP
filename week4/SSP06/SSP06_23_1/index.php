@@ -52,7 +52,7 @@ foreach ($_SESSION['cart'] as $id => $quantity) {
       <!-- TODO (user): Log in first, add and remove products, clear the cart, and verify each result. -->
       <?php foreach ($products as $product): ?>
         <article>
-          <h2><?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?></h2>
+          <h2>Product: <?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?></h2>
           <p>$<?= number_format((float) $product['price'], 2) ?></p>
           <form method="post">
             <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
@@ -65,7 +65,7 @@ foreach ($_SESSION['cart'] as $id => $quantity) {
       <?php if ($_SESSION['cart'] === []): ?>
         <p>Your cart is empty.</p>
       <?php else: ?>
-        <table border="1">
+        <table>
           <tr><th scope="col">Product</th><th scope="col">Qty</th><th scope="col">Subtotal</th><th scope="col">Action</th></tr>
           <?php foreach ($_SESSION['cart'] as $id => $quantity): ?>
             <?php if (isset($products[$id])): ?>
