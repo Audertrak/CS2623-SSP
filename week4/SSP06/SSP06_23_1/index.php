@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require '../SSP06_21_2/auth.php';
+require_once __DIR__ . '/../SSP06_21_2/auth.php';
 
 // use an array keyed by product id to mirror a database result set
 $products = [
@@ -48,15 +48,15 @@ foreach ($_SESSION['cart'] as $id => $quantity) {
   <body>
     <header>
       <h1>Product Catalog</h1>
-      <p>Cart (<?= (int) $itemCount ?> items)</p>
+      <p>Cart (<?= htmlspecialchars((string) $itemCount, ENT_QUOTES, 'UTF-8') ?> items)</p>
     </header>
     <main>
       <?php foreach ($products as $product): ?>
         <article>
           <h2>Product: <?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?></h2>
-          <p>$<?= number_format((float) $product['price'], 2) ?></p>
+          <p>$<?= htmlspecialchars(number_format((float) $product['price'], 2), ENT_QUOTES, 'UTF-8') ?></p>
           <form method="post">
-            <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
+            <input type="hidden" name="product_id" value="<?= htmlspecialchars((string) $product['id'], ENT_QUOTES, 'UTF-8') ?>">
             <button type="submit" name="action" value="add">Add to Cart</button>
           </form>
         </article>
@@ -72,18 +72,18 @@ foreach ($_SESSION['cart'] as $id => $quantity) {
             <?php if (isset($products[$id])): ?>
               <tr>
                 <td><?= htmlspecialchars($products[$id]['name'], ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= (int) $quantity ?></td>
-                <td>$<?= number_format($products[$id]['price'] * $quantity, 2) ?></td>
+                <td><?= htmlspecialchars((string) $quantity, ENT_QUOTES, 'UTF-8') ?></td>
+                <td>$<?= htmlspecialchars(number_format($products[$id]['price'] * $quantity, 2), ENT_QUOTES, 'UTF-8') ?></td>
                 <td>
                   <form method="post">
-                    <input type="hidden" name="product_id" value="<?= (int) $id ?>">
+                    <input type="hidden" name="product_id" value="<?= htmlspecialchars((string) $id, ENT_QUOTES, 'UTF-8') ?>">
                     <button type="submit" name="action" value="remove">Remove one</button>
                   </form>
                 </td>
               </tr>
             <?php endif; ?>
           <?php endforeach; ?>
-          <tr><th colspan="2" scope="row">Total</th><td colspan="2">$<?= number_format($total, 2) ?></td></tr>
+          <tr><th colspan="2" scope="row">Total</th><td colspan="2">$<?= htmlspecialchars(number_format($total, 2), ENT_QUOTES, 'UTF-8') ?></td></tr>
         </table>
       <?php endif; ?>
       <p><a href="cart_clear.php">Clear Cart</a></p>

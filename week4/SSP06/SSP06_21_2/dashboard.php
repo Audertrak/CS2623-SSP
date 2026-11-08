@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require 'auth.php';
+require_once __DIR__ . '/auth.php';
 // convert server time to the course timezone before display
 $loginTime = (new DateTimeImmutable('@' . (int) $_SESSION['login_at']))
     ->setTimezone(new DateTimeZone('America/Chicago'));

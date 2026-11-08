@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require 'auth.php';
+require_once __DIR__ . '/auth.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
