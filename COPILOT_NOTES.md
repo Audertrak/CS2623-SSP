@@ -124,17 +124,39 @@ User enhancement: I added this security note after reviewing page 6. This correc
 
 ## Week 4
 
+> [!NOTE] **NOTE TO THE INSTRUCTOR:**
+> The Week 4 starter code uses a few constructs that I avoided in earlier weeks: the `<?= ?>` short echo tag, `??` and `??=`, `class="error"` in Ex 15-1, and `login.php` as the login page name. I kept the first three because the Week 4 assignment prescribes them and PHP 8 is the target. I used `index.php` as the login page in `SSP06_21_2` so it matches the other exercise folders, and every redirect points to it. Please advise if you want `login.php`.
+
 ### ✅ Accepted
 
-- Some text
+- Ex 15-1: I accepted `htmlspecialchars()` on `$exception->getMessage()` before it prints. Exception text can include submitted values, so it needs the same escaping as any other output.
+- Ex 21-2: I accepted `session_unset()` and `session_destroy()` followed by a redirect in `logout.php`. I also clear the remember-me cookie there so a logged-out browser does not keep the username.
 
 ### ❌ Rejected
 
-- Some text
+- Ex 11-1: I rejected `filter_input(INPUT_POST, 'search', FILTER_SANITIZE_SPECIAL_CHARS)`. It encodes the value on input and `htmlspecialchars()` then encodes it again on output. I read the raw value with `FILTER_UNSAFE_RAW`, check that it is a string made of letters only, and escape it where it prints.
+- Ex 15-1: I rejected a custom email regex. `filter_var($email, FILTER_VALIDATE_EMAIL)` follows the real email rules and a hand-written pattern would reject valid addresses or accept bad ones.
+- Ex 15-1: I rejected `strip_tags()` for the message output. It removes tags but it is not XSS protection. The message goes through `nl2br(htmlspecialchars(...))`, in that order, so line breaks stay and any HTML shows as text.
+- Ex 15-1: I rejected `addslashes()` for database safety. This exercise has no database, so nothing runs a query here. When an exercise does, I will use PDO prepared statements because `addslashes()` is not enough.
+- Ex 21-2: I rejected `md5()` and `sha1()` for passwords. They are fast hashes that are cheap to crack. The user array uses `password_hash(..., PASSWORD_DEFAULT)`.
+- Ex 21-2: I rejected comparing the typed password to a plain string such as `$pw === 'secret'`. The login uses `password_verify()` against the stored hash, so no plain-text password is compared or stored.
+- Ex 23-1: I rejected a cart page that depends on `session_start()` already being there. `$_SESSION` does nothing without it and Copilot can leave it out. `auth.php` calls `session_start()` and the cart page requires `auth.php` before it touches the session.
 
 ### ✏️ Improved
 
-- Some text
+- Ex 11-1: The final code uses `[]` short array syntax and not `array()`.
+- Ex 11-1: `in_array($search, $fruits, true)` has the strict third argument, so `'1'` does not match a number by type juggling.
+- Ex 11-1: The six-character filter is `array_filter()` with an arrow function, `fn(string $fruit): bool => strlen($fruit) >= 6`, and not an anonymous `function` block.
+- Ex 11-1: I wrapped every printed value in `htmlspecialchars()`, including the item count and the `id` column that the starter printed with a bare `(int)` cast, and I put `number_format()` on the price. I also replaced the double-quoted message with single quotes and concatenation to match my other pages.
+- Ex 15-1: The first version threw `FormatException` the moment the product code failed, which hid every other error. I changed `validateContact()` to collect all errors first and then throw `FormatException` if the product code was one of them, otherwise `ValidationException`. The catch order stays most specific first.
+- Ex 21-2: I added `session_regenerate_id(true)` after a successful `password_verify()` so an old session id cannot be reused after login.
+- Ex 21-2: I read the form values with `filter_input(INPUT_POST, ...)` and not `$_POST` directly, and checked each with `is_string()`.
+- Ex 21-2: The lockout counts failed attempts for each username in `$_SESSION['attempts']`, and not one counter for the whole session. After three failures that account is refused, and a failed guess at one name does not lock another.
+- Ex 23-1: I shortened the cart setup to `$_SESSION['cart'] ??= [];`, since PHP 8 has the assignment form.
+- Ex 23-1: I read the product id with `filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT)` and check for both `false` and `null`, and not a direct `(int) $_POST[...]` cast.
+- Ex 23-1: I printed every price and subtotal through `number_format(..., 2)` inside `htmlspecialchars()`, and I escaped the item count and the hidden `product_id` values.
+- Ex 23-1: I added `require_once __DIR__ . '/../SSP06_21_2/auth.php'` so the cart needs a login and the path does not depend on Apache's working folder. I used the same `require_once __DIR__` form in the dashboard and profile pages.
+- Ex 21-2: The dashboard shows the login time in `America/Chicago`, since Apollo runs UTC.
 
 ## Week 5
 
